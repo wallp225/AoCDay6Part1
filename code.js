@@ -8,12 +8,9 @@ fetch("https://raw.githubusercontent.com/wallp225/AoCDay6Part1/main/input.txt")
           console.log(arrayOfWords.length);
             arrayOfWords.forEach(line => {
                 // here in line, in each iteration of the loop, the value of each line is stored
-                console.log(line);
-                //findTask(line);
-                i++;
-                console.log(i);
+                findTask(line);
             })
-            //getNumberOfLightsOn();
+            getNumberOfLightsOn();
         })
         .catch(err => {
             console.log(err)
