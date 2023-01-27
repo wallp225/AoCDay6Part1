@@ -1,5 +1,23 @@
 // To Do:
 // get contents of input and add to array of strings. loop array and run find task.  Once loop completed call get NumberOfLightsOn.
+fetch("https://raw.githubusercontent.com/wallp225/AoCDay6Part1/main/input.txt")
+        .then(res => res.text())
+        .then(data => {
+          let i = 0;
+          const arrayOfWords = data.split('\n');
+          console.log(arrayOfWords.length);
+            arrayOfWords.forEach(line => {
+                // here in line, in each iteration of the loop, the value of each line is stored
+                console.log(line);
+                //findTask(line);
+                i++;
+                console.log(i);
+            })
+            //getNumberOfLightsOn();
+        })
+        .catch(err => {
+            console.log(err)
+        })
 
 // lets
 let myCoord1;
@@ -51,28 +69,31 @@ function getCoords(string) {
   coord2 = [coord2a, coord2b];
   myCoord1 = coord1;
   myCoord2 = coord2;
-  function formatValue(coord, ){
-    let value = parseInt(
-    coord
-      .slice(0, coord.indexOf(","))
-      .toString()
-      .replace(/,/g, "")
-  );
-    return value;
-  }
+  console.log(myCoord1, myCoord2);
 }
 
 // determine which function needs to be called first
 function findTask(string) {
   getCoords(string);
   if (string.startsWith("turn on")) {
+    console.log("Turn on");
     turnOnLights(myCoord1, myCoord2);
   }
   if (string.startsWith("turn off")) {
+    console.log("Turn off");
     turnOffLights(myCoord1, myCoord2);
   }
   if (string.startsWith("toggle")) {
+    console.log("Toggle");
     toggleLights(myCoord1, myCoord2);
+  }
+  clearCoords();
+}
+
+function clearCoords() {
+  for (let i = 2; i > 0; i--) {
+    myCoord1.pop();
+    myCoord2.pop();
   }
 }
 
@@ -85,7 +106,7 @@ function turnOnLights(coord1, coord2) {
       }
     }
   }
-  console.log(lights);
+  console.log("Turn on Complete");
 }
 
 // function to turn off lights (if 1, toggle to 0);
@@ -97,7 +118,7 @@ function turnOffLights(coord1, coord2) {
       }
     }
   }
-  console.log(lights);
+  console.log("Turn off Complete");
 }
 
 // function to toggle lights (all 1s become 0s and all 0s become 1s);
@@ -107,7 +128,7 @@ function toggleLights(coord1, coord2) {
       lights[i][j] = !lights[i][j];
     }
   }
-  console.log(lights);
+  console.log("Toggle Complete");
 }
 
 function getNumberOfLightsOn() {
@@ -122,16 +143,3 @@ function getNumberOfLightsOn() {
   }
   console.log(count);
 }
-
-// tests
-let string1 = "turn on 0,0 through 999,999 should turn on all the lights";
-let string2 =
-  "toggle 0,0 through 999,0 should only affect the first line of lights, swapping 1s to 0s and 0s to 1s";
-let string3 =
-  "turn off 499,499 through 500,500 should turn off the 4 middle lights";
-let strings = [string1, string2, string3];
-
-findTask(string1);
-findTask(string2);
-findTask(string3);
-getNumberOfLightsOn();
